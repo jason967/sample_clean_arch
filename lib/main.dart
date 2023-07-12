@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc_observer.dart';
 import 'core/theme/theme_data.dart';
 import 'core/utils/rest_client/rest_client.dart';
 import 'data/data_source/remote/display_api.dart';
@@ -7,6 +9,8 @@ import 'data/repository_impl/display.repositoryImpl.dart';
 import 'presentation/test_page/test_page.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = BaseBlocObserver();
   final dio = RestClient().getDio;
 
   final DisplayApi displayApi = DisplayApi(RestClient().getDio);

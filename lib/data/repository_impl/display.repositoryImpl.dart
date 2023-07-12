@@ -1,9 +1,10 @@
-import 'package:dio/dio.dart';
-
+import '../../core/utils/constant/display.dart';
+import '../../core/utils/exception/repository_exception.dart';
+import '../../domain/model/display/menu/menu.model.dart';
 import '../../domain/repository/display.repository.dart';
 import '../data_source/remote/display_api.dart';
-import '../dto/display/menu/menu.dto.dart';
 import '../dto/response_wrapper/response_wrapper.dart';
+import '../mapper/display.mapper.dart';
 
 class DisplayRepositoryImpl implements DisplayRepository {
   final DisplayApi _displayApi;
@@ -11,16 +12,23 @@ class DisplayRepositoryImpl implements DisplayRepository {
   DisplayRepositoryImpl(this._displayApi);
 
   @override
-  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(
-    String mallType,
-    Map<String, String> queryParams,
-  ) async {
+  Future<ResponseWrapper<List<Menu>>> getMenusByMallType({
+    required MallType mallType,
+    required Map<String, String> queryParams,
+  }) async {
     try {
-      return await _displayApi.getMenusByMallType(mallType: mallType);
-    } on DioException catch (err) {
-      // print('[error] $err');
-      // rethrow;
-      throw Exception(err);
+      final response = await _displayApi.getMenusByMallType(mallType.name);
+      final List<Menu> data =
+          response.data?.map((e) => e.toModel()).toList() ?? [];
+
+      return ResponseWrapper<List<Menu>>(
+        status: response.status,
+        code: response.code,
+        message: response.message,
+        data: data,
+      );
+    } on Exception catch (error) {
+      throw RepositoryException(error);
     }
   }
 }

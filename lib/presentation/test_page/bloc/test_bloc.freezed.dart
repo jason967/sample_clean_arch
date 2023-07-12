@@ -90,7 +90,7 @@ class __$$_TestStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TestState implements _TestState {
-  _$_TestState({this.status = Status.failure});
+  _$_TestState({this.status = Status.initialized});
 
   @override
   @JsonKey()

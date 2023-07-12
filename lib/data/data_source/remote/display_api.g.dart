@@ -22,7 +22,7 @@ class _DisplayApi implements DisplayApi {
 
   @override
   Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(
-      {required String mallType}) async {
+      String mallType) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};

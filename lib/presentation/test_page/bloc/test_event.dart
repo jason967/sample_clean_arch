@@ -5,7 +5,7 @@ abstract class TestEvent {
 }
 
 class TestInitialized extends TestEvent {
-  final String mallType;
+  final MallType mallType;
 
   TestInitialized(this.mallType);
 }

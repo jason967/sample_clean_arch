@@ -11,7 +11,7 @@ abstract class DisplayApi {
   factory DisplayApi(Dio _dio, {String? baseUrl}) = _DisplayApi;
 
   @GET('/api/v1/main/{mall_type}')
-  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType({
-    @Path('mall_type') required String mallType,
-  });
+  Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(
+    @Path('mall_type') String mallType,
+  );
 }

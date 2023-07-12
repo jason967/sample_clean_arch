@@ -5,6 +5,6 @@ enum Status { initialized, loading, success, failure }
 @freezed
 class TestState with _$TestState {
   factory TestState({
-    @Default(Status.failure) Status status,
+    @Default(Status.initialized) Status status,
   }) = _TestState;
 }
