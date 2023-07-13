@@ -3,7 +3,11 @@ class CommonError {
   final String? code;
   final String? message;
 
-  CommonError({this.status = 'SUCCESS', this.code = '0000', this.message = ''});
+  const CommonError({
+    this.status = 'SUCCESS',
+    this.code = '0000',
+    this.message = '',
+  });
 
   @override
   String toString() {

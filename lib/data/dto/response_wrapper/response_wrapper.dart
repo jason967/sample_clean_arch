@@ -18,14 +18,3 @@ class ResponseWrapper<T> with _$ResponseWrapper<T> {
           Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
       _$ResponseWrapperFromJson<T>(json, fromJsonT);
 }
-
-extension ResponseWrapperX<T> on ResponseWrapper<T> {
-  ResponseWrapper toModel(T data) {
-    return ResponseWrapper(
-      status: status,
-      code: code,
-      message: message,
-      data: data,
-    );
-  }
-}

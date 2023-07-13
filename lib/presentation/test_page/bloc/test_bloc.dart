@@ -1,11 +1,9 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/utils/constant/display.dart';
 import '../../../core/utils/error/common_error.dart';
-import '../../../core/utils/exception/repository_exception.dart';
-import '../../../core/utils/exception/usecase_exception.dart';
+import '../../../core/utils/exception/common_exception.dart';
 import '../../../core/utils/logger.dart';
 import '../../../core/utils/rest_client/rest_client.dart';
 import '../../../data/data_source/mock/display_mock_api.dart';
@@ -34,11 +32,11 @@ class TestBloc extends Bloc<TestEvent, TestState> {
     final mallType = event.mallType;
 
     emit(state.copyWith(status: Status.loading));
-    await Future.delayed(Duration(seconds: 3));
+    await Future.delayed(Duration(seconds: 1));
     try {
       // 테스트용
-      // final displayApi = DisplayApi(RestClient().getDio);
-      final displayApi = DisplayMockApi();
+      final displayApi = DisplayApi(RestClient().getDio);
+      // final displayApi = DisplayMockApi();
       final displayRepository = DisplayRepositoryImpl(displayApi);
       final displayUsecase = DisplayUsecase(displayRepository);
 
@@ -48,48 +46,21 @@ class TestBloc extends Bloc<TestEvent, TestState> {
       );
 
       response.when(
-        success: (data) {
-          final menus = data;
+        success: (menus) {
           emit(state.copyWith(status: Status.success, menus: menus));
         },
         failure: (error) {
           emit(state.copyWith(status: Status.failure, error: error));
         },
       );
-      // 밑 부분은 더 손볼 듯
-    } on DioException catch (error) {
-      CustomLogger.logger.e(error);
-
-      emit(state.copyWith(
-        status: Status.failure,
-        error: CommonError(
-          status: 'network error',
-          code: (error.type == DioExceptionType.badResponse)
-              ? error.response?.statusCode.toString()
-              : '7777',
-          message: 'network error가 발생했습니다.',
-        ),
-      ));
-    } on Exception catch (error) {
-      CustomLogger.logger.e(error);
-
-      emit(state.copyWith(
-        status: Status.failure,
-        error: CommonError(
-          status: 'common error',
-          code: '9999',
-          message: '일반적인 error가 발생했습니다.',
-        ),
-      ));
     } catch (error) {
-      emit(state.copyWith(
-        status: Status.failure,
-        error: CommonError(
-          status: 'unknown error',
-          code: '-1',
-          message: '알수 없는 오류가 발생했습니다.',
+      CustomLogger.logger.e(error);
+      emit(
+        state.copyWith(
+          status: Status.failure,
+          error: CommonException.setError(error),
         ),
-      ));
+      );
     }
   }
 }

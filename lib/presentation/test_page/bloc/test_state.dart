@@ -7,6 +7,6 @@ class TestState with _$TestState {
   factory TestState({
     @Default(Status.initialized) Status status,
     @Default(<Menu>[]) List<Menu> menus,
-    CommonError? error,
+    @Default(CommonError()) CommonError error,
   }) = _TestState;
 }

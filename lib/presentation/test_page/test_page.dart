@@ -56,7 +56,7 @@ class TestView extends StatelessWidget {
           },
           listener: (context, state) {
             if (state.status == Status.failure) {
-              CommonDialog.networkErrorDialog(context, state.error!);
+              CommonDialog.networkErrorDialog(context, state.error,()=> context.read<TestBloc>().add(TestInitialized(MallType.market)));
             }
           },
           listenWhen: (prev, curr) => prev.status != curr.status,

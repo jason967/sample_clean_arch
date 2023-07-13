@@ -8,19 +8,26 @@ class CommonDialog {
   static Future<void> networkErrorDialog(
     BuildContext context,
     CommonError error,
+      VoidCallback onPress,
   ) {
     return showDialog(
       context: context,
-      builder: (BuildContext ctx) {
+      builder: (_) {
         return AlertDialog(
-          content: Container(
-            alignment: Alignment.center,
-            height: 40,
-            child: Text('${error.message ?? ''} \n [${error.code}]'),
+          content: SizedBox(
+            height: 70,
+            child: Column(
+              children: [
+                Text('${error.message ?? ''}', textAlign: TextAlign.center),
+                Text('[${error.code ?? ''}]'),
+              ],
+            ),
           ),
+          contentPadding: EdgeInsets.only(top: 20),
           actions: [
             ElevatedButton(
-              onPressed: () => Navigator.pop(context),
+              // onPressed: () =>  Navigator.pop(context),
+              onPressed: onPress,
               child: Text('확인'),
             ),
           ],

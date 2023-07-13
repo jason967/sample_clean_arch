@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$TestState {
   Status get status => throw _privateConstructorUsedError;
   List<Menu> get menus => throw _privateConstructorUsedError;
-  CommonError? get error => throw _privateConstructorUsedError;
+  CommonError get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TestStateCopyWith<TestState> get copyWith =>
@@ -30,7 +30,7 @@ abstract class $TestStateCopyWith<$Res> {
   factory $TestStateCopyWith(TestState value, $Res Function(TestState) then) =
       _$TestStateCopyWithImpl<$Res, TestState>;
   @useResult
-  $Res call({Status status, List<Menu> menus, CommonError? error});
+  $Res call({Status status, List<Menu> menus, CommonError error});
 }
 
 /// @nodoc
@@ -48,7 +48,7 @@ class _$TestStateCopyWithImpl<$Res, $Val extends TestState>
   $Res call({
     Object? status = null,
     Object? menus = null,
-    Object? error = freezed,
+    Object? error = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -59,10 +59,10 @@ class _$TestStateCopyWithImpl<$Res, $Val extends TestState>
           ? _value.menus
           : menus // ignore: cast_nullable_to_non_nullable
               as List<Menu>,
-      error: freezed == error
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as CommonError?,
+              as CommonError,
     ) as $Val);
   }
 }
@@ -74,7 +74,7 @@ abstract class _$$_TestStateCopyWith<$Res> implements $TestStateCopyWith<$Res> {
       __$$_TestStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, List<Menu> menus, CommonError? error});
+  $Res call({Status status, List<Menu> menus, CommonError error});
 }
 
 /// @nodoc
@@ -90,7 +90,7 @@ class __$$_TestStateCopyWithImpl<$Res>
   $Res call({
     Object? status = null,
     Object? menus = null,
-    Object? error = freezed,
+    Object? error = null,
   }) {
     return _then(_$_TestState(
       status: null == status
@@ -101,10 +101,10 @@ class __$$_TestStateCopyWithImpl<$Res>
           ? _value._menus
           : menus // ignore: cast_nullable_to_non_nullable
               as List<Menu>,
-      error: freezed == error
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as CommonError?,
+              as CommonError,
     ));
   }
 }
@@ -115,7 +115,7 @@ class _$_TestState implements _TestState {
   _$_TestState(
       {this.status = Status.initialized,
       final List<Menu> menus = const <Menu>[],
-      this.error})
+      this.error = const CommonError()})
       : _menus = menus;
 
   @override
@@ -131,7 +131,8 @@ class _$_TestState implements _TestState {
   }
 
   @override
-  final CommonError? error;
+  @JsonKey()
+  final CommonError error;
 
   @override
   String toString() {
@@ -163,14 +164,14 @@ abstract class _TestState implements TestState {
   factory _TestState(
       {final Status status,
       final List<Menu> menus,
-      final CommonError? error}) = _$_TestState;
+      final CommonError error}) = _$_TestState;
 
   @override
   Status get status;
   @override
   List<Menu> get menus;
   @override
-  CommonError? get error;
+  CommonError get error;
   @override
   @JsonKey(ignore: true)
   _$$_TestStateCopyWith<_$_TestState> get copyWith =>
