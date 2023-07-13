@@ -17,6 +17,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$TestState {
   Status get status => throw _privateConstructorUsedError;
+  List<Menu> get menus => throw _privateConstructorUsedError;
+  CommonError? get error => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $TestStateCopyWith<TestState> get copyWith =>
@@ -28,7 +30,7 @@ abstract class $TestStateCopyWith<$Res> {
   factory $TestStateCopyWith(TestState value, $Res Function(TestState) then) =
       _$TestStateCopyWithImpl<$Res, TestState>;
   @useResult
-  $Res call({Status status});
+  $Res call({Status status, List<Menu> menus, CommonError? error});
 }
 
 /// @nodoc
@@ -45,12 +47,22 @@ class _$TestStateCopyWithImpl<$Res, $Val extends TestState>
   @override
   $Res call({
     Object? status = null,
+    Object? menus = null,
+    Object? error = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      menus: null == menus
+          ? _value.menus
+          : menus // ignore: cast_nullable_to_non_nullable
+              as List<Menu>,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as CommonError?,
     ) as $Val);
   }
 }
@@ -62,7 +74,7 @@ abstract class _$$_TestStateCopyWith<$Res> implements $TestStateCopyWith<$Res> {
       __$$_TestStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status});
+  $Res call({Status status, List<Menu> menus, CommonError? error});
 }
 
 /// @nodoc
@@ -77,12 +89,22 @@ class __$$_TestStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
+    Object? menus = null,
+    Object? error = freezed,
   }) {
     return _then(_$_TestState(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
+      menus: null == menus
+          ? _value._menus
+          : menus // ignore: cast_nullable_to_non_nullable
+              as List<Menu>,
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as CommonError?,
     ));
   }
 }
@@ -90,15 +112,30 @@ class __$$_TestStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_TestState implements _TestState {
-  _$_TestState({this.status = Status.initialized});
+  _$_TestState(
+      {this.status = Status.initialized,
+      final List<Menu> menus = const <Menu>[],
+      this.error})
+      : _menus = menus;
 
   @override
   @JsonKey()
   final Status status;
+  final List<Menu> _menus;
+  @override
+  @JsonKey()
+  List<Menu> get menus {
+    if (_menus is EqualUnmodifiableListView) return _menus;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_menus);
+  }
+
+  @override
+  final CommonError? error;
 
   @override
   String toString() {
-    return 'TestState(status: $status)';
+    return 'TestState(status: $status, menus: $menus, error: $error)';
   }
 
   @override
@@ -106,11 +143,14 @@ class _$_TestState implements _TestState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_TestState &&
-            (identical(other.status, status) || other.status == status));
+            (identical(other.status, status) || other.status == status) &&
+            const DeepCollectionEquality().equals(other._menus, _menus) &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status);
+  int get hashCode => Object.hash(
+      runtimeType, status, const DeepCollectionEquality().hash(_menus), error);
 
   @JsonKey(ignore: true)
   @override
@@ -120,10 +160,17 @@ class _$_TestState implements _TestState {
 }
 
 abstract class _TestState implements TestState {
-  factory _TestState({final Status status}) = _$_TestState;
+  factory _TestState(
+      {final Status status,
+      final List<Menu> menus,
+      final CommonError? error}) = _$_TestState;
 
   @override
   Status get status;
+  @override
+  List<Menu> get menus;
+  @override
+  CommonError? get error;
   @override
   @JsonKey(ignore: true)
   _$$_TestStateCopyWith<_$_TestState> get copyWith =>

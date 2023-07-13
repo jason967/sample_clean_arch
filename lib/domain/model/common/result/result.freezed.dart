@@ -19,38 +19,38 @@ mixin _$Result<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(ServiceState serviceState) error,
+    required TResult Function(CommonError error) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
-    TResult? Function(ServiceState serviceState)? error,
+    TResult? Function(CommonError error)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(ServiceState serviceState)? error,
+    TResult Function(CommonError error)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(Error<T> value) failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(Error<T> value)? failure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(Error<T> value)? failure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -139,7 +139,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(ServiceState serviceState) error,
+    required TResult Function(CommonError error) failure,
   }) {
     return success(data);
   }
@@ -148,7 +148,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
-    TResult? Function(ServiceState serviceState)? error,
+    TResult? Function(CommonError error)? failure,
   }) {
     return success?.call(data);
   }
@@ -157,7 +157,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(ServiceState serviceState)? error,
+    TResult Function(CommonError error)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -170,7 +170,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(Error<T> value) failure,
   }) {
     return success(this);
   }
@@ -179,7 +179,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(Error<T> value)? failure,
   }) {
     return success?.call(this);
   }
@@ -188,7 +188,7 @@ class _$Success<T> implements Success<T> {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(Error<T> value)? failure,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -212,9 +212,7 @@ abstract class _$$ErrorCopyWith<T, $Res> {
   factory _$$ErrorCopyWith(_$Error<T> value, $Res Function(_$Error<T>) then) =
       __$$ErrorCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({ServiceState serviceState});
-
-  $ServiceStateCopyWith<$Res> get serviceState;
+  $Res call({CommonError error});
 }
 
 /// @nodoc
@@ -227,36 +225,28 @@ class __$$ErrorCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? serviceState = null,
+    Object? error = null,
   }) {
     return _then(_$Error<T>(
-      null == serviceState
-          ? _value.serviceState
-          : serviceState // ignore: cast_nullable_to_non_nullable
-              as ServiceState,
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as CommonError,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ServiceStateCopyWith<$Res> get serviceState {
-    return $ServiceStateCopyWith<$Res>(_value.serviceState, (value) {
-      return _then(_value.copyWith(serviceState: value));
-    });
   }
 }
 
 /// @nodoc
 
 class _$Error<T> implements Error<T> {
-  const _$Error(this.serviceState);
+  const _$Error(this.error);
 
   @override
-  final ServiceState serviceState;
+  final CommonError error;
 
   @override
   String toString() {
-    return 'Result<$T>.error(serviceState: $serviceState)';
+    return 'Result<$T>.failure(error: $error)';
   }
 
   @override
@@ -264,12 +254,11 @@ class _$Error<T> implements Error<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Error<T> &&
-            (identical(other.serviceState, serviceState) ||
-                other.serviceState == serviceState));
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, serviceState);
+  int get hashCode => Object.hash(runtimeType, error);
 
   @JsonKey(ignore: true)
   @override
@@ -281,29 +270,29 @@ class _$Error<T> implements Error<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(T data) success,
-    required TResult Function(ServiceState serviceState) error,
+    required TResult Function(CommonError error) failure,
   }) {
-    return error(serviceState);
+    return failure(error);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(T data)? success,
-    TResult? Function(ServiceState serviceState)? error,
+    TResult? Function(CommonError error)? failure,
   }) {
-    return error?.call(serviceState);
+    return failure?.call(error);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(T data)? success,
-    TResult Function(ServiceState serviceState)? error,
+    TResult Function(CommonError error)? failure,
     required TResult orElse(),
   }) {
-    if (error != null) {
-      return error(serviceState);
+    if (failure != null) {
+      return failure(error);
     }
     return orElse();
   }
@@ -312,38 +301,38 @@ class _$Error<T> implements Error<T> {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(Error<T> value) failure,
   }) {
-    return error(this);
+    return failure(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(Error<T> value)? failure,
   }) {
-    return error?.call(this);
+    return failure?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(Error<T> value)? failure,
     required TResult orElse(),
   }) {
-    if (error != null) {
-      return error(this);
+    if (failure != null) {
+      return failure(this);
     }
     return orElse();
   }
 }
 
 abstract class Error<T> implements Result<T> {
-  const factory Error(final ServiceState serviceState) = _$Error<T>;
+  const factory Error(final CommonError error) = _$Error<T>;
 
-  ServiceState get serviceState;
+  CommonError get error;
   @JsonKey(ignore: true)
   _$$ErrorCopyWith<T, _$Error<T>> get copyWith =>
       throw _privateConstructorUsedError;

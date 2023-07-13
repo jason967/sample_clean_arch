@@ -6,7 +6,7 @@ class DisplayUsecase {
 
   DisplayUsecase(this._displayRepository);
 
-  Future fetch({required RemoteUsecase usecase}) async {
+  Future excute<T>({required RemoteUsecase usecase}) async {
     return await usecase(_displayRepository);
   }
 }

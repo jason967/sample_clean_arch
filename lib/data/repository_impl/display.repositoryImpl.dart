@@ -1,5 +1,6 @@
 import '../../core/utils/constant/display.dart';
 import '../../core/utils/exception/repository_exception.dart';
+import '../../core/utils/logger.dart';
 import '../../domain/model/display/menu/menu.model.dart';
 import '../../domain/repository/display.repository.dart';
 import '../data_source/remote/display_api.dart';
@@ -16,19 +17,15 @@ class DisplayRepositoryImpl implements DisplayRepository {
     required MallType mallType,
     required Map<String, String> queryParams,
   }) async {
-    try {
-      final response = await _displayApi.getMenusByMallType(mallType.name);
-      final List<Menu> data =
-          response.data?.map((e) => e.toModel()).toList() ?? [];
+    final response = await _displayApi.getMenusByMallType(mallType.name);
+    final List<Menu> data =
+        response.data?.map((e) => e.toModel()).toList() ?? [];
 
-      return ResponseWrapper<List<Menu>>(
-        status: response.status,
-        code: response.code,
-        message: response.message,
-        data: data,
-      );
-    } on Exception catch (error) {
-      throw RepositoryException(error);
-    }
+    return ResponseWrapper<List<Menu>>(
+      status: response.status,
+      code: response.code,
+      message: response.message,
+      data: data,
+    );
   }
 }

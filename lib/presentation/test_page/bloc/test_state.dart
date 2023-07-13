@@ -6,5 +6,7 @@ enum Status { initialized, loading, success, failure }
 class TestState with _$TestState {
   factory TestState({
     @Default(Status.initialized) Status status,
+    @Default(<Menu>[]) List<Menu> menus,
+    CommonError? error,
   }) = _TestState;
 }
